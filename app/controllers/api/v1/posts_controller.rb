@@ -33,6 +33,12 @@ class Api::V1::PostsController < ApplicationController
 		end
 	end
 
+	def destroy
+		post = Post.find(params[:id])
+		post.destroy
+		head 204
+	end
+
 	private
 
 	def post_params

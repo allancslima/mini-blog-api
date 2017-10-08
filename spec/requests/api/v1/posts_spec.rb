@@ -83,7 +83,7 @@ RSpec.describe 'Post API', type: :request do
 	end
 
 
-	describe 'PUT /posts' do
+	describe 'PUT /posts/:id' do
 		let(:post) { create(:post) }
 		let(:post_id) { post.id }
 
@@ -111,6 +111,22 @@ RSpec.describe 'Post API', type: :request do
 			it 'returns the json error for title' do
 				expect(json_body[:errors]).to have_key(:title)
 			end
+		end
+	end
+
+
+	describe 'DELETE /posts/:id' do
+		let(:post) { create(:post) }
+		let(:post_id) { post.id }
+
+		before { delete "/posts/#{post_id}", params: {}, headers: headers }
+
+		it 'returns status code 204' do
+			expect(response).to have_http_status(204)
+		end
+
+		it 'removes the post from database' do
+			expect( Post.find_by(id: post_id) ).to be_nil
 		end
 	end
 
