@@ -76,8 +76,40 @@ RSpec.describe 'Post API', type: :request do
 				expect(response).to have_http_status(422)
 			end
 
-			it 'returns the json data for the errors' do
-				expect(json_body).to have_key(:errors)
+			it 'returns the json error for title' do
+				expect(json_body[:errors]).to have_key(:title)
+			end
+		end
+	end
+
+
+	describe 'PUT /posts' do
+		let(:post) { create(:post) }
+		let(:post_id) { post.id }
+
+		before { put "/posts/#{post_id}", params: { post: post_params }.to_json, headers: headers }
+
+		context 'when the request params are valid' do
+			let(:post_params) { { title: 'New post title' } }
+
+			it 'returns status code 200' do
+				expect(response).to have_http_status(200)
+			end
+
+			it 'returns the json data for the update user' do
+				expect(json_body[:title]).to eq(post_params[:title])
+			end
+		end
+
+		context 'when the request params are invalid' do
+			let(:post_params) { { title: '' } }
+
+			it 'returns status code 422' do
+				expect(response).to have_http_status(422)
+			end
+
+			it 'returns the json error for title' do
+				expect(json_body[:errors]).to have_key(:title)
 			end
 		end
 	end
