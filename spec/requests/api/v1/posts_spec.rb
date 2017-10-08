@@ -21,8 +21,7 @@ RSpec.describe 'Post API', type: :request do
 		end
 
 		it 'returns 5 posts from database' do
-			posts_response = JSON.parse(response.body, symbolize_names: true)
-			expect(posts_response[:posts].count).to eq(5)
+			expect(json_body[:posts].count).to eq(5)
 		end
 	end
 
@@ -39,8 +38,7 @@ RSpec.describe 'Post API', type: :request do
 			end
 
 			it 'returns the json data for the post' do
-				post_response = JSON.parse(response.body, symbolize_names: true)
-				expect(post_response[:title]).to eq(post.title)
+				expect(json_body[:title]).to eq(post.title)
 			end
 		end
 
@@ -67,8 +65,7 @@ RSpec.describe 'Post API', type: :request do
 			end
 
 			it 'returns the json data for the created post' do
-				post_response = JSON.parse(response.body, symbolize_names: true)
-				expect(post_response[:title]).to eq(post_params[:title])
+				expect(json_body[:title]).to eq(post_params[:title])
 			end
 		end
 
@@ -80,8 +77,7 @@ RSpec.describe 'Post API', type: :request do
 			end
 
 			it 'returns the json data for the errors' do
-				post_response = JSON.parse(response.body, symbolize_names: true)
-				expect(post_response).to have_key(:errors)
+				expect(json_body).to have_key(:errors)
 			end
 		end
 	end
