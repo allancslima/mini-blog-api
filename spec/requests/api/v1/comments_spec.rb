@@ -138,4 +138,20 @@ RSpec.describe 'Comments API', type: :request do
 		end
 	end
 
+
+	describe 'DELETE /posts/:post_id/comments/:commment_id' do
+		let(:comment) { create(:comment, post_id: publish.id) }
+		before do
+			delete "/posts/#{publish.id}/comments/#{comment.id}", params: { post_id: publish.id, comment_id: comment.id}, headers: headers
+		end
+
+		it 'returns status code 204' do
+			expect(response).to have_http_status(204)
+		end
+
+		it 'removes the comment from database' do
+			expect( Comment.find_by(id: comment.id) ).to be_nil
+		end
+	end
+
 end
