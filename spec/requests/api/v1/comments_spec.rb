@@ -82,7 +82,7 @@ RSpec.describe 'Comments API', type: :request do
 		end
 
 		context 'when the request params are invalid' do
-			let(:comment_params) { attributes_for(:comment, email: '') }
+			let(:comment_params) { attributes_for(:comment, email: 'invalid_email@') }
 
 			it 'returns status code 422' do
 				expect(response).to have_http_status(422)

@@ -9,6 +9,7 @@ RSpec.describe Comment, type: :model do
 	it { is_expected.to validate_presence_of(:email) }
 	it { is_expected.to validate_presence_of(:content) }
 	it { is_expected.to validate_presence_of(:post_id) }
+	it { is_expected.to allow_value('allancslima@gmail.com').for(:email) }
 
 	it { is_expected.to respond_to(:name) }
 	it { is_expected.to respond_to(:email) }
