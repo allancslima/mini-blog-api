@@ -15,7 +15,7 @@ RSpec.describe 'Comments API', type: :request do
 	describe 'GET /posts/:post_id/comments' do
 		before do
 			create_list(:comment, 5, post_id: publish.id)
-			get "/posts/#{publish.id}/comments", params: { post_id: publish.id }, headers: headers
+			get "/posts/#{publish.id}/comments", params: {}, headers: headers
 		end
 
 		it 'returns status code 200' do
@@ -33,7 +33,7 @@ RSpec.describe 'Comments API', type: :request do
 		let(:comment_id) { comment.id }
 
 		before do
-			get "/posts/#{publish.id}/comments/#{comment_id}", params: { post_id: publish.id, comment_id: comment_id }, headers: headers
+			get "/posts/#{publish.id}/comments/#{comment_id}", params: {}, headers: headers
 		end
 
 		context 'when the comment exists' do
@@ -58,7 +58,7 @@ RSpec.describe 'Comments API', type: :request do
 
 	describe 'POST /posts/:post_id/comments' do
 		before do
-			post "/posts/#{publish.id}/comments", params: { post_id: publish.id, comment: comment_params }.to_json, headers: headers
+			post "/posts/#{publish.id}/comments", params: { comment: comment_params }.to_json, headers: headers
 		end
 
 		context 'when the request params are valid' do
@@ -102,7 +102,7 @@ RSpec.describe 'Comments API', type: :request do
 	describe 'PUT /posts/:post_id/comments/:commment_id' do
 		let(:comment) { create(:comment, post_id: publish.id) }
 		before do
-			put "/posts/#{publish.id}/comments/#{comment.id}", params: { post_id: publish.id, comment_id: comment.id, comment: comment_params }.to_json, headers: headers
+			put "/posts/#{publish.id}/comments/#{comment.id}", params: { comment: comment_params }.to_json, headers: headers
 		end
 
 		context 'when the params are valid' do
@@ -142,7 +142,7 @@ RSpec.describe 'Comments API', type: :request do
 	describe 'DELETE /posts/:post_id/comments/:commment_id' do
 		let(:comment) { create(:comment, post_id: publish.id) }
 		before do
-			delete "/posts/#{publish.id}/comments/#{comment.id}", params: { post_id: publish.id, comment_id: comment.id}, headers: headers
+			delete "/posts/#{publish.id}/comments/#{comment.id}", params: {}, headers: headers
 		end
 
 		it 'returns status code 204' do

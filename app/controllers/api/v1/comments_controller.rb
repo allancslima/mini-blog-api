@@ -8,7 +8,7 @@ class Api::V1::CommentsController < ApplicationController
 
 	def show
 		begin
-			comment = current_post.comments.find(params[:comment_id])
+			comment = current_post.comments.find(params[:id])
 			render json: comment, status: 200
 		rescue
 			head 404
@@ -26,7 +26,7 @@ class Api::V1::CommentsController < ApplicationController
 	end
 
 	def update
-		comment = current_post.comments.find(params[:comment_id])
+		comment = current_post.comments.find(params[:id])
 		
 		if comment.update_attributes(comment_params)
 			render json: comment, status: 200
@@ -36,7 +36,7 @@ class Api::V1::CommentsController < ApplicationController
 	end
 
 	def destroy
-		comment = current_post.comments.find(params[:comment_id])
+		comment = current_post.comments.find(params[:id])
 		comment.destroy
 		head 204
 	end
