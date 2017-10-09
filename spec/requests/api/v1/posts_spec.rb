@@ -10,19 +10,35 @@ RSpec.describe 'Post API', type: :request do
 	end
 
 
-	describe 'GET /posts' do
+	describe 'GET /posts | there are a total of 25 posts in the database' do
 		before do
-			create_list(:post, 5)
-			get '/posts', params: {}, headers: headers
+			create_list(:post, 25)
+			get '/posts', params: { page: page }, headers: headers
 		end
 
-		it 'returns status code 200' do
-			expect(response).to have_http_status(200)
+		context 'when the page is the first' do
+			let(:page) { 1 }
+
+			it 'returns status code 200' do
+				expect(response).to have_http_status(200)
+			end
+
+			it 'returns 20 posts from database' do
+				expect(json_body[:posts].count).to eq(20)
+			end
 		end
 
-		it 'returns 5 posts from database' do
-			expect(json_body[:posts].count).to eq(5)
-		end
+		context 'when the page is the second' do
+			let(:page) { 2 }
+
+			it 'returns status code 200' do
+				expect(response).to have_http_status(200)
+			end
+
+			it 'returns 5 posts from database' do
+				expect(json_body[:posts].count).to eq(5)
+			end
+		end	
 	end
 
 

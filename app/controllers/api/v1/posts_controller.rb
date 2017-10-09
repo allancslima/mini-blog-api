@@ -1,7 +1,8 @@
 class Api::V1::PostsController < ApplicationController
 	def index
-		posts = Post.all
-		render json: { posts: posts }, status: 200 
+		posts = Post.all.page(params[:page])
+		total_pages = Post.all.page.total_pages
+		render json: { total_pages: total_pages, posts: posts }, status: 200 
 	end
 
 	def show
