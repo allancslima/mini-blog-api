@@ -10,18 +10,24 @@ RSpec.describe 'Post API', type: :request do
 	end
 
 
-	describe 'GET /posts | there are a total of 25 posts in the database' do
+	describe 'GET /posts | for a total of 25 posts in the database' do
+		let(:page) {}
+		
 		before do
 			create_list(:post, 25)
 			get '/posts', params: { page: page }, headers: headers
 		end
 
-		context 'when the page is the first' do
-			let(:page) { 1 }
-
-			it 'returns status code 200' do
+		it 'returns status code 200' do
 				expect(response).to have_http_status(200)
 			end
+
+		it 'returns the posts content with up to 100 characters' do
+			expect( json_body[:posts].first[:content].length ).to be <= 100
+		end
+
+		context 'when the page is the first' do
+			let(:page) { 1 }
 
 			it 'returns 20 posts from database' do
 				expect(json_body[:posts].count).to eq(20)
@@ -30,10 +36,6 @@ RSpec.describe 'Post API', type: :request do
 
 		context 'when the page is the second' do
 			let(:page) { 2 }
-
-			it 'returns status code 200' do
-				expect(response).to have_http_status(200)
-			end
 
 			it 'returns 5 posts from database' do
 				expect(json_body[:posts].count).to eq(5)
