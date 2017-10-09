@@ -14,4 +14,30 @@ class Api::V1::CommentsController < ApplicationController
 			head 404
 		end
 	end
+
+	def create
+		comment = current_post.comments.build(comment_params)
+		
+		if comment.save
+			render json: comment, status: 201
+		else
+			render json: { errors: comment.errors }, status: 422
+		end
+	end
+
+	def update
+		comment = current_post.comments.find(params[:comment_id])
+		
+		if comment.update_attributes(comment_params)
+			render json: comment, status: 200
+		else
+			render json: { errors: comment.errors }, status: 422
+		end
+	end
+
+	private
+
+	def comment_params
+		params.require(:comment).permit(:name, :email, :content)
+	end
 end
