@@ -1,4 +1,4 @@
-<section class="details-post">
+<section class="post">
 	<h1>{{ post.title }}</h1>
 	<p>{{ post.content }}</p>
 	<h3>Comments</h3>
@@ -6,4 +6,12 @@
 		<b>{{ comment.name }}</b> | <b>{{ comment.email }}</b>
 		<p>{{ comment.content }}</p>
 	</div>
+	<form style="max-width: 300px; margin: 20px 0;" class="form-new">
+		<input type="text" ng-model="comment.name" placeholder="Name">
+		<input type="text" ng-model="comment.email" placeholder="Email">
+		<textarea rows="4" ng-model="comment.content" placeholder="Content">
+		</textarea>
+		<input type="button" ng-click="addComment(comment)" value="Comment">
+		<p>{{ errorMessage }}</p>
+	</form>
 </section>

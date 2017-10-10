@@ -3,7 +3,7 @@ body {
 	font-family: 'Roboto', Helvetica, Arial, Sans-serif;
 	color: #212121;
 }
-h1, h2, h3, h4 {
+h1, h2, h3 {
 	margin: 0;
 	font-weight: 400;
 }
@@ -15,6 +15,16 @@ a {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+.btn	{
+	display: inline-block;
+	margin-right: 5px; 
+	padding: 10px 20px;
+	background-color: #EEE;
+	cursor: pointer;
+}
+.btn:hover	{
+	background-color: #CCC;
 }
 /* NAVTIGATION */
 .navbar {
@@ -40,44 +50,37 @@ a {
 	width: 100%;
 	margin-bottom: 20px;
 }
-.post {
+/* POST ITEM */
+.post-item {
 	width: 100%;
 	margin-top: 20px;
 }
-.post a {
+.post-item a {
 	margin-left: 5px;
 	font-weight: 700;
 }
-.post a:hover {
+.post-item a:hover {
 	border-bottom: 3px solid #212121;
 }
-.link	{
-	display: inline-block;
-	margin-right: 5px; 
-	padding: 10px 20px;
-	background-color: #EEE;
-	cursor: pointer;
-}
-.link:hover	{
-	background-color: #CCC;
-}
-.details-post {
+/* POST */
+.post {
 	max-width: 600px;
 	margin: 20px auto;
 }
-.details-post h3 {
+.post h3 {
 	margin-top: 50px;
 }
 .comment {
 	margin-top: 20px;
 }
-.new-post {
+/* NEW POST */
+.form-new {
 	max-width: 400px;
 	margin: 20px auto;
 }
-.new-post input, textarea {
+.form-new input, textarea {
 	width: 100%;
 	margin-bottom: 10px;
-	padding: 10px;
+	padding: 5px;
 	box-sizing: border-box;
 }
