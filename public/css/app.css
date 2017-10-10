@@ -7,15 +7,15 @@ h1, h2, h3, h4 {
 	margin: 0;
 	font-weight: 400;
 }
-.container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
+a {
+	text-decoration: none;
+	color: #212121;
 }
 /* NAVTIGATION */
 .navbar {
 	padding: 10px;
 	background-color: #3F51B5;
+	text-align: center;
 }
 .navbar > a {
 	text-decoration: none;
@@ -27,6 +27,7 @@ h1, h2, h3, h4 {
 	max-width: 600px;
 	margin: 20px auto;
 	padding: 20px;
+	box-sizing: border-box;
 	border: 1px solid #EEE;
 	box-shadow: 0px 0px 10px #EEE;
 }
@@ -34,17 +35,24 @@ h1, h2, h3, h4 {
 	width: 100%;
 	margin-bottom: 20px;
 }
-/* POST */
 .post {
 	width: 100%;
+	margin-top: 20px;
 }
 .post a {
 	margin-left: 5px;
-	text-decoration: none;
-	color: #212121;
 	font-weight: 700;
 }
 .post a:hover {
-	color: #000;
-	border-bottom: 2px solid #212121;
+	border-bottom: 3px solid #212121;
+}
+.link	{
+	display: inline-block;
+	margin-right: 5px; 
+	padding: 10px 20px;
+	background-color: #EEE;
+	cursor: pointer;
+}
+.link:hover	{
+	background-color: #CCC;
 }

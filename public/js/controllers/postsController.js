@@ -1,13 +1,14 @@
 angular.module("miniBlogApp").controller("postsController", function($scope, postsAPI) {
 	$scope.posts = [];
-	$scope.totalPages = 0;
+	$scope.pages = [];
 
-	var loadPosts = function() {
-		postsAPI.getPosts().then(function onSuccess(response) {
+	$scope.loadPosts = function(page) {
+		postsAPI.getPosts(page).then(function onSuccess(response) {
 			$scope.posts = response.data.posts;
-			$scope.totalPages = response.data.total_pages;
+			for (var i=0; i < response.data.total_pages; i++)
+				$scope.pages[i] = i+1;
 		});
 	}
 
-	loadPosts();
+	$scope.loadPosts();
 });
