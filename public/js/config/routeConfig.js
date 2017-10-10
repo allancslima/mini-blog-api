@@ -4,6 +4,10 @@ angular.module('miniBlogApp').config(function($routeProvider) {
 		templateUrl: "view/posts.html",
 		controller: "postsController"
 	})
+	.when("/newPost", {
+		templateUrl: "view/newPost.html",
+		controller: "newPostController"
+	})
 	.when("/post/:id", {
 		templateUrl: "view/post.html",
 		controller: "postController",
