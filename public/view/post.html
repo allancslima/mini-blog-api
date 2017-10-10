@@ -1,0 +1,9 @@
+<section class="details-post">
+	<h1>{{ post.title }}</h1>
+	<p>{{ post.content }}</p>
+	<h3>Comments</h3>
+	<div class="comment" ng-repeat="comment in post.comments">
+		<b>{{ comment.name }}</b> | <b>{{ comment.email }}</b>
+		<p>{{ comment.content }}</p>
+	</div>
+</section>

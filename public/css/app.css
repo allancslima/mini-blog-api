@@ -56,3 +56,13 @@ a {
 .link:hover	{
 	background-color: #CCC;
 }
+.details-post {
+	max-width: 600px;
+	margin: 20px auto;
+}
+.details-post h3 {
+	margin-top: 50px;
+}
+.comment {
+	margin-top: 20px;
+}
