@@ -22,12 +22,16 @@ angular.module("miniBlogApp").factory("postsAPI", function($http) {
 			comment: comment
 		});
 	}
+	var _deletePost = function(postId) {
+		return $http.delete(apiBase + "/posts/" + postId);
+	}
 
 	return {
 		getPosts: _getPosts,
 		getPost: _getPost,
 		getPostComments: _getPostComments,
 		savePost: _savePost,
-		saveComment: _saveComment
+		saveComment: _saveComment,
+		deletePost: _deletePost
 	};
 });

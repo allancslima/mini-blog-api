@@ -1,6 +1,7 @@
 <section id="posts">
 	<h2>Posts</h2>
 	<a class="btn" href="#!newPost">Add Post</a>
+	<button ng-click="removePosts(posts)" ng-if="isPostSelected(posts)">Remove</button>
 	<div class="btn" ng-repeat="page in pages track by $index" ng-click="loadPosts(page)">
 		{{ page }}
 	</div>
