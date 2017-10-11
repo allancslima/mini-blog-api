@@ -9,7 +9,9 @@ RSpec.describe Comment, type: :model do
 	it { is_expected.to validate_presence_of(:email) }
 	it { is_expected.to validate_presence_of(:body) }
 	it { is_expected.to validate_presence_of(:post_id) }
-	it { is_expected.to allow_value('allancslima@gmail.com').for(:email) }
+	
+	it { is_expected.to allow_value('allancslima@gmail.com').for(:email).on(:create) }
+	it { is_expected.to validate_length_of(:body).is_at_least(3).on(:create) }
 
 	it { is_expected.to respond_to(:name) }
 	it { is_expected.to respond_to(:email) }

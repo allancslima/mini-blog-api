@@ -1,5 +1,6 @@
 class Api::V1::CommentsController < ApplicationController
-	before_action :authenticate_post_with_id!
+	
+	before_action :confirm_post_with_id!
 
 	def index
 		comments = current_post.comments
@@ -46,4 +47,5 @@ class Api::V1::CommentsController < ApplicationController
 	def comment_params
 		params.require(:comment).permit(:name, :email, :body)
 	end
+	
 end

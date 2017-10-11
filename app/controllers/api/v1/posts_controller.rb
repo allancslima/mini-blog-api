@@ -1,12 +1,16 @@
 class Api::V1::PostsController < ApplicationController
+	
 	def index
 		posts = Post.all.page(params[:page])
+
+		total_pages = Post.all.page.total_pages
+		
+		# posts receiving only the first 100 characters
 		posts = posts.each do |post|
 			post.content = post.content[0..99]
 			post
 		end
 
-		total_pages = Post.all.page.total_pages
 		render json: { total_pages: total_pages, posts: posts }, status: 200 
 	end
 
@@ -50,4 +54,5 @@ class Api::V1::PostsController < ApplicationController
 	def post_params
 		params.require(:post).permit(:title, :content)
 	end
+	
 end

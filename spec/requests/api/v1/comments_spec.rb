@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Comments API', type: :request do
-	before { host! 'api.miniblog.dev' }
 
-	let(:publish) { create(:post) }
+	# using the 'post' name causes conflicts with the post method
+	let!(:publish) { create(:post) }
+	let(:post_id) { publish.id }
 	let(:headers) do
 		{
 			'Content-Type' => Mime[:json].to_s,
@@ -11,11 +12,13 @@ RSpec.describe 'Comments API', type: :request do
 		}
 	end
 
+	before { host! 'api.miniblog.dev' }
+
 
 	describe 'GET /posts/:post_id/comments' do
 		before do
-			create_list(:comment, 5, post_id: publish.id)
-			get "/posts/#{publish.id}/comments", params: {}, headers: headers
+			create_list(:comment, 5, post_id: post_id)
+			get "/posts/#{post_id}/comments", params: {}, headers: headers
 		end
 
 		it 'returns status code 200' do
@@ -29,12 +32,10 @@ RSpec.describe 'Comments API', type: :request do
 
 
 	describe 'GET /posts/:post_id/comments/:comment_id' do
-		let(:comment) { create(:comment, post_id: publish.id) }
+		let!(:comment) { create(:comment, post_id: post_id) }
 		let(:comment_id) { comment.id }
 
-		before do
-			get "/posts/#{publish.id}/comments/#{comment_id}", params: {}, headers: headers
-		end
+		before { get "/posts/#{post_id}/comments/#{comment_id}", params: {}, headers: headers }
 
 		context 'when the comment exists' do
 			it 'returns status code 200' do
@@ -57,9 +58,7 @@ RSpec.describe 'Comments API', type: :request do
 
 
 	describe 'POST /posts/:post_id/comments' do
-		before do
-			post "/posts/#{publish.id}/comments", params: { comment: comment_params }.to_json, headers: headers
-		end
+		before { post "/posts/#{post_id}/comments", params: { comment: comment_params }.to_json, headers: headers }
 
 		context 'when the request params are valid' do
 			let(:comment_params) { attributes_for(:comment) }
@@ -77,7 +76,7 @@ RSpec.describe 'Comments API', type: :request do
 			end
 
 			it 'assigns the created comment to the current post' do
-				expect(json_body[:post_id]).to eq(publish.id)
+				expect(json_body[:post_id]).to eq(post_id)
 			end
 		end
 
@@ -100,10 +99,9 @@ RSpec.describe 'Comments API', type: :request do
 
 
 	describe 'PUT /posts/:post_id/comments/:commment_id' do
-		let(:comment) { create(:comment, post_id: publish.id) }
-		before do
-			put "/posts/#{publish.id}/comments/#{comment.id}", params: { comment: comment_params }.to_json, headers: headers
-		end
+		let!(:comment) { create(:comment, post_id: post_id) }
+		
+		before { put "/posts/#{post_id}/comments/#{comment.id}", params: { comment: comment_params }.to_json, headers: headers }
 
 		context 'when the params are valid' do
 			let(:comment_params) { { body: 'New comment body' } }
@@ -140,10 +138,9 @@ RSpec.describe 'Comments API', type: :request do
 
 
 	describe 'DELETE /posts/:post_id/comments/:commment_id' do
-		let(:comment) { create(:comment, post_id: publish.id) }
-		before do
-			delete "/posts/#{publish.id}/comments/#{comment.id}", params: {}, headers: headers
-		end
+		let!(:comment) { create(:comment, post_id: post_id) }
+
+		before { delete "/posts/#{post_id}/comments/#{comment.id}", params: {}, headers: headers }
 
 		it 'returns status code 204' do
 			expect(response).to have_http_status(204)

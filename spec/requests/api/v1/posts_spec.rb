@@ -1,13 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe 'Post API', type: :request do
-	before { host! 'api.miniblog.dev' }
+
+	# using the 'post' name causes conflicts with the post method
+	let(:publish) { create(:post) }
+	let(:post_id) { publish.id }
 	let(:headers) do
 		{
 			'Content-Type' => Mime[:json].to_s,
 			'Accept' => 'application/vnd.miniblog.v1'
 		}
 	end
+
+	before { host! 'api.miniblog.dev' }
 
 
 	describe 'GET /posts | for a total of 25 posts in the database' do
@@ -45,9 +50,6 @@ RSpec.describe 'Post API', type: :request do
 
 
 	describe 'GET /posts/:id' do
-		let(:post) { create(:post) }
-		let(:post_id) { post.id }
-
 		before { get "/posts/#{post_id}", params: {}, headers: headers }
 
 		context 'when the post exists' do
@@ -56,7 +58,7 @@ RSpec.describe 'Post API', type: :request do
 			end
 
 			it 'returns the json data for the post' do
-				expect(json_body[:title]).to eq(post.title)
+				expect(json_body[:title]).to eq(publish.title)
 			end
 		end
 
@@ -71,9 +73,7 @@ RSpec.describe 'Post API', type: :request do
 
 
 	describe 'POST /posts' do
-		before do
-			post '/posts', params: { post: post_params }.to_json, headers: headers
-		end
+		before { post '/posts', params: { post: post_params }.to_json, headers: headers }
 
 		context 'when the request params are valid' do
 			let(:post_params) { attributes_for(:post) }
@@ -102,9 +102,6 @@ RSpec.describe 'Post API', type: :request do
 
 
 	describe 'PUT /posts/:id' do
-		let(:post) { create(:post) }
-		let(:post_id) { post.id }
-
 		before { put "/posts/#{post_id}", params: { post: post_params }.to_json, headers: headers }
 
 		context 'when the request params are valid' do
@@ -134,9 +131,6 @@ RSpec.describe 'Post API', type: :request do
 
 
 	describe 'DELETE /posts/:id' do
-		let(:post) { create(:post) }
-		let(:post_id) { post.id }
-
 		before { delete "/posts/#{post_id}", params: {}, headers: headers }
 
 		it 'returns status code 204' do
