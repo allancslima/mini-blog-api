@@ -42,7 +42,7 @@ RSpec.describe 'Comments API', type: :request do
 			end
 
 			it 'returns the json data for the comment' do
-				expect(json_body[:content]).to eq(comment.content)
+				expect(json_body[:body]).to eq(comment.body)
 			end
 		end
 
@@ -73,7 +73,7 @@ RSpec.describe 'Comments API', type: :request do
 			end
 
 			it 'saves comment in the database' do
-				expect( Comment.find_by(content: comment_params[:content]) ).not_to be_nil
+				expect( Comment.find_by(body: comment_params[:body]) ).not_to be_nil
 			end
 
 			it 'assigns the created comment to the current post' do
@@ -89,7 +89,7 @@ RSpec.describe 'Comments API', type: :request do
 			end
 
 			it 'does not save the comment in the database' do
-				expect( Comment.find_by(content: comment_params[:content]) ).to be_nil
+				expect( Comment.find_by(body: comment_params[:body]) ).to be_nil
 			end
 
 			it 'returns the json error for email' do
@@ -106,34 +106,34 @@ RSpec.describe 'Comments API', type: :request do
 		end
 
 		context 'when the params are valid' do
-			let(:comment_params) { { content: 'New comment content' } }
+			let(:comment_params) { { body: 'New comment body' } }
 
 			it 'returns status code 200' do
 				expect(response).to have_http_status(200)
 			end
 
 			it 'returns the json data for the updated comment' do
-				expect(json_body[:content]).to eq(comment_params[:content])
+				expect(json_body[:body]).to eq(comment_params[:body])
 			end
 
 			it 'updates the comment in the database' do
-				expect( Comment.find_by(content: comment_params[:content]) ).not_to be_nil
+				expect( Comment.find_by(body: comment_params[:body]) ).not_to be_nil
 			end
 		end
 
 		context 'when the params are invalid' do
-			let(:comment_params) { { content: '' } }
+			let(:comment_params) { { body: '' } }
 
 			it 'returns status code 422' do
 				expect(response).to have_http_status(422)
 			end
 
-			it 'returns the json error for content' do
-				expect(json_body[:errors]).to have_key(:content)
+			it 'returns the json error for body' do
+				expect(json_body[:errors]).to have_key(:body)
 			end
 
 			it 'does not update the comment in the database' do
-				expect( Comment.find_by(content: comment_params[:content]) ).to be_nil
+				expect( Comment.find_by(body: comment_params[:body]) ).to be_nil
 			end
 		end
 	end
