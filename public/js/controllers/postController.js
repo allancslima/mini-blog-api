@@ -13,6 +13,7 @@ angular.module("miniBlogApp").controller("postController", function($scope, resp
 		.then(function onSuccess(response) {
 			delete $scope.comment;
 			loadComments();
+			$scope.errorMessage = null;
 		}, function(err) {
 			$scope.errorMessage = err.statusText;
 		});

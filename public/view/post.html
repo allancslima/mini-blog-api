@@ -10,7 +10,7 @@
 <form class="form-new">
 	<input type="text" ng-model="comment.name" placeholder="Name">
 	<input type="text" ng-model="comment.email" placeholder="Email">
-	<textarea rows="4" ng-model="comment.content" placeholder="Content">
+	<textarea rows="4" ng-model="comment.body" placeholder="Content">
 	</textarea>
 	<input type="button" ng-click="addComment(comment)" value="Comment">
 	<p>{{ errorMessage }}</p>
