@@ -6,7 +6,7 @@ angular.module("miniBlogApp").controller("postController", function($scope, resp
 		.then(function onSuccess(response) {
 			$scope.post.comments = response.data.comments;
 		});
-	}
+	};
 
 	$scope.addComment = function(comment) {
 		postsAPI.saveComment(comment, $scope.post.id)
@@ -16,7 +16,7 @@ angular.module("miniBlogApp").controller("postController", function($scope, resp
 		}, function(err) {
 			$scope.errorMessage = err.statusText;
 		});
-	}
+	};
 	
 	loadComments();
 });

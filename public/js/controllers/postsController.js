@@ -10,7 +10,7 @@ angular.module("miniBlogApp").controller("postsController", function($scope, pos
 			for (var i=0; i < response.data.total_pages; i++)
 				$scope.pages[i] = i+1;
 		});
-	}
+	};
 
 	$scope.removePosts = function (posts) {
 		$scope.posts.filter(function (post) {
@@ -21,13 +21,13 @@ angular.module("miniBlogApp").controller("postsController", function($scope, pos
 				});
 			}
 		});
-	}
+	};
 
-	$scope.isPostSelected = function (posts) {
+	$scope.isSelectedPost = function (posts) {
 		return posts.some(function (post) {
 			return post.selected;
 		});
-	}
+	};
 
 	$scope.loadPosts();
 });

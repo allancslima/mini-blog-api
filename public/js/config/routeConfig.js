@@ -1,13 +1,15 @@
 angular.module('miniBlogApp').config(function($routeProvider) {
 	$routeProvider
-	.when("/posts", {
+	.when("/", {
 		templateUrl: "view/posts.html",
 		controller: "postsController"
 	})
+
 	.when("/newPost", {
 		templateUrl: "view/newPost.html",
 		controller: "newPostController"
 	})
+	
 	.when("/post/:id", {
 		templateUrl: "view/post.html",
 		controller: "postController",
