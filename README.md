@@ -1,24 +1,56 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* **Ruby version**
 
-Things you may want to cover:
+	2.4.1
 
-* Ruby version
+* **Rails version**
 
-* System dependencies
+	5.1.4
 
-* Configuration
+* **Configuration**
 
-* Database creation
+	> cd mini-blog-api/
+	> 
+	> bundle install
 
-* Database initialization
+	Set your mysql password in config/database.yml
 
-* How to run the test suite
+Then:
+> rake db:create
+> 
+> rake db:migrate
+> 
+> rails server
 
-* Services (job queues, cache servers, search engines, etc.)
+Access http://localhost:3000/
 
-* Deployment instructions
+* **Tests suite**
 
-* ...
+	To run all tests: 
+
+	> bundle exec spring rspec --format=d
+
+	Post model
+
+	> bundle exec spring rspec spec/models/post_spec.rb
+	
+	![enter image description here](https://i.imgur.com/cFHa50l.png)
+
+	Comment model
+
+	> bundle exec spring rspec spec/models/comment_spec.rb
+	
+	![enter image description here](https://i.imgur.com/KekFbR0.png)
+
+	Posts controller
+
+	> bundle exec spring rspec spec/requests/api/v1/posts_spec.rb
+	
+	![enter image description here](https://i.imgur.com/Fd3pnrt.png)
+
+	Comments controller
+
+	> bundle exec spring rspec spec/requests/api/v1/comments_spec.rb
+	
+	![enter image description here](https://i.imgur.com/pstiu4l.png)
