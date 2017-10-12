@@ -12,7 +12,7 @@ RSpec.describe 'Comments API', type: :request do
 		}
 	end
 
-	before { host! 'api.miniblog.dev' }
+	before { host! 'localhost:3000/api' }
 
 
 	describe 'GET /posts/:post_id/comments' do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Post API', type: :request do
+RSpec.describe 'Posts API', type: :request do
 
 	# using the 'post' name causes conflicts with the post method
 	let(:publish) { create(:post) }
@@ -12,7 +12,7 @@ RSpec.describe 'Post API', type: :request do
 		}
 	end
 
-	before { host! 'api.miniblog.dev' }
+	before { host! 'localhost:3000/api' }
 
 
 	describe 'GET /posts | for a total of 25 posts in the database' do
